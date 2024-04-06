@@ -44,8 +44,8 @@ class Shopping extends Controller
         $descount = 10;
         $data->total = $data->Price * $tax + $data->Price;
         $data->tax = $tax;
-        $data->discount = 10;
-        $data->net = $data->total - $data->discount;
+        $data->descount = 10;
+        $data->net = $data->total - $data->descount;
       // return $data;
         return view('shopping.details' ,['data'=>$data] );
         
@@ -83,7 +83,21 @@ class Shopping extends Controller
 
     }
 
- 
+    public function Cart(){
+        $userid = auth()->user()->id;
+        $data = DB::table('carts')
+        ->join('Product_details' , 'Product_details.id' , '=' , 'carts.ProductId')
+        
+        ->where('carts.userId' , $userid)
+        ->get();
+       
+        $total_price = DB::table('carts')
+        ->join('product_details' , 'product_details.id' , '=' , 'carts.ProductId')
+        ->where('carts.userId' , $userid)
+        ->sum('carts.Price');
+
+        return view('shopping.cart' , compact('data' , 'total_price'));
+    }
 
  
 

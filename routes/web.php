@@ -33,11 +33,16 @@ Route::get('Products/delete/{id}', [Dashboard::class, 'DeleteDetails'])->name('D
 Route::post('/dashboard/createproductdetails',[Dashboard::class,'createProductDetails'])->name('create-details');
 
 //....................................Shopping..........................................
+Route::get('/shopping', function () {
+    return view('welcome');
+})->name('shopping');
 Route::get('/shopping/showitems' , [Shopping::class, 'ShowListItemPhone'])->name('showitems');
 
 Route::get('/shopping/showdetails/{id}' , [Shopping::class, 'ShowDetailsPhone'])->name('showdetails');
 
 Route::get('/shopping/add_to_cart/{id}' , [Shopping::class, 'AddToCart'])->name('AddToCart');
+
+Route::get('/cart' , [Shopping::class, 'Cart'])->name('Cart');
 
 
 Auth::routes();
